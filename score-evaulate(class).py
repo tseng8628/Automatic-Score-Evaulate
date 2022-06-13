@@ -29,7 +29,7 @@ class scoreEvaulate():
         number1 = list(x for x in list(df1['座號'].tolist()) if pd.isnull(x) == False)
         number1 = list(map(int, number1))
         name1 = df1['姓名'].tolist()[0:len(number1)]
-        hw_score = df1[df1.columns[4]].tolist()[0:len(number1)]
+        hw_score = df1[df1.columns[self.write_row - 1]].tolist()[0:len(number1)]
 
         for i in range(len(saveScore)):
             if saveScore[i][1] in name1:                # saveScore[i][1]姓名
