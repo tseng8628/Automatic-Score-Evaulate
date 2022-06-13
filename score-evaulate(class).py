@@ -26,14 +26,15 @@ class scoreEvaulate():
     def writeScore(self, saveScore):
 
         df1 = pd.read_excel(self.path + self.output_excel, self.classroom)
-        number1 = list(map(int, df1['座號'].tolist()[0:30]))
-        name1 = df1['姓名'].tolist()[0:30]
-        hw_score = df1[df1.columns[self.write_row]].tolist()[0:30]
+        number1 = list(x for x in list(df1['座號'].tolist()) if pd.isnull(x) == False)
+        number1 = list(map(int, number1))
+        name1 = df1['姓名'].tolist()[0:len(number1)]
+        hw_score = df1[df1.columns[4]].tolist()[0:len(number1)]
 
         for i in range(len(saveScore)):
-            if saveScore[i][1] in name1:
+            if saveScore[i][1] in name1:                # saveScore[i][1]姓名
                 index = name1.index(saveScore[i][1])
-                hw_score[index] = saveScore[i][2]
+                hw_score[index] = saveScore[i][2]       # saveScore[i][2]分數
             else:
                 pass
 
@@ -73,20 +74,20 @@ class scoreEvaulate():
 if __name__ == '__main__':
 
     # input參數
-    # 注意還有人數要先更改
     classroom = '803'
     path = '/Volumes/GoogleDrive/我的雲端硬碟/02 110-2/04 各班成績/'
-    input_excel = '【803回饋表】課堂練習2-打磚塊(Scratch)  (回覆).xlsx'
+    input_excel = '【803回饋表】課堂練習1-小朋友下樓梯(Scratch) (回覆).xlsx'
     output_excel = '110-2各班成績.xlsx'
 
     # hw1 = {'basic_score': 65, 'last_input_row': 20, 'write_row': 3}
     # hw2 = {'basic_score': 65, 'last_input_row': 19, 'write_row': 4}
     # hw3 = {'basic_score': 70, 'last_input_row': 16, 'write_row': 5}
     # hw4 = {'basic_score': 70, 'last_input_row': 15, 'write_row': 7}
+    # hw6 = {'basic_score': 70, 'last_input_row': 15, 'write_row': 9}
 
-    basic_score = 65
-    last_input_row = 19
-    write_row = 4
+    basic_score = 70
+    last_input_row = 15
+    write_row = 9
 
     a = scoreEvaulate(classroom, path, input_excel, output_excel, basic_score, last_input_row, write_row)
     a.main()
